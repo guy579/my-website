@@ -2,11 +2,20 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  // Check if the password is correct
+  const correctPassword = 'yourPassword'; // Replace this with your desired password
+
+  if (password !== correctPassword) {
+    alert('Incorrect password. Please try again.');
+    return; // Stop the function if the password is incorrect
+  }
 
   // Save the username to localStorage
   localStorage.setItem('username', username); 
 
-  // Send the username to the Discord webhook
+  // Send the username to the Discord webhook (optional)
   sendToDiscord(username);
 
   // Update the page content
