@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(45deg, #6a11cb, #2575fc, #fbb034, #ff6347); /* Initial Gradient */
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite; /* The gradient will change over time */
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
