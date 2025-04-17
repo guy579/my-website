@@ -1,6 +1,4 @@
-<script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Get form and input elements
   const form = document.getElementById("signup-form");
   const gmailInput = document.getElementById("username");
   const passwordInput = document.getElementById("password");
@@ -18,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle form submission
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the page from reloading
 
     const gmail = gmailInput.value;
     const password = passwordInput.value;
@@ -76,4 +74,3 @@ document.addEventListener("DOMContentLoaded", () => {
     mainContent.style.display = "block";
   }
 });
-</script>
