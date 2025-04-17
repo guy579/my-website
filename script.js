@@ -1,62 +1,53 @@
-document.getElementById('signup-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("signup-form");
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
+  const displayName = document.getElementById("display-name");
+  const signupContainer = document.getElementById("signup-container");
+  const mainContent = document.getElementById("main-content");
 
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  // Check if the password is correct
-  const correctPassword = 'yourPassword'; // Replace this with your desired password
+    const username = usernameInput.value;
+    const password = passwordInput.value;
 
-  if (password !== correctPassword) {
-    alert('Incorrect password. Please try again.');
-    return; // Stop the function if the password is incorrect
+    const correctPassword = "mySecret123"; // <-- You can change this
+
+    if (password !== correctPassword) {
+      alert("Incorrect password. Please try again.");
+      return;
+    }
+
+    localStorage.setItem("username", username);
+    displayName.textContent = username;
+    signupContainer.style.display = "none";
+    mainContent.style.display = "block";
+
+    sendToDiscord(username);
+  });
+
+  const savedName = localStorage.getItem("username");
+  if (savedName) {
+    displayName.textContent = savedName;
+    signupContainer.style.display = "none";
+    mainContent.style.display = "block";
   }
-
-  // Save the username to localStorage
-  localStorage.setItem('username', username); 
-
-  // Send the username to the Discord webhook (optional)
-  sendToDiscord(username);
-
-  // Update the page content
-  document.getElementById('display-name').textContent = username;
-  document.getElementById('signup-container').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
 });
 
-// Function to send data to Discord
 function sendToDiscord(username) {
-  const webhookURL = "https://discord.com/api/webhooks/1362138187962650727/aVG7VuftNpdkCSHQH8aMGEp5HoLdTuis4OdDrpVFdwnj0TDcVUCkEr3dUt4zV-5OP1rL"; // Replace with your actual Discord webhook URL
+  const webhookURL = "https://discord.com/api/webhooks/1362138187962650727/aVG7VuftNpdkCSHQH8aMGEp5HoLdTuis4OdDrpVFdwnj0TDcVUCkEr3dUt4zV-5OP1rL";
 
   const payload = {
     content: `New signup: ${username}`,
-    username: "Signup Bot", // Name the bot
-    avatar_url: "https://cdn.discordapp.com/icons/your_server_id/your_icon.png", // Optional avatar URL
+    username: "Signup Bot",
   };
 
-  // Make a POST request to the webhook
   fetch(webhookURL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  }).catch((err) => console.error("Webhook error:", err));
 }
-
-// On page load, check if user already signed up
-window.addEventListener('DOMContentLoaded', () => {
-  const savedName = localStorage.getItem('username');
-  if (savedName) {
-    document.getElementById('display-name').textContent = savedName;
-    document.getElementById('signup-container').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-  }
-});
