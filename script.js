@@ -12,21 +12,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    const correctPassword = "mySecret123"; // <-- You can change this
+    // Set your desired password here
+    const correctPassword = "mySecret123"; // <--- Change this to whatever you want
 
     if (password !== correctPassword) {
       alert("Incorrect password. Please try again.");
       return;
     }
 
+    // Save username
     localStorage.setItem("username", username);
     displayName.textContent = username;
     signupContainer.style.display = "none";
     mainContent.style.display = "block";
 
+    // Send to Discord
     sendToDiscord(username);
   });
 
+  // If already signed in
   const savedName = localStorage.getItem("username");
   if (savedName) {
     displayName.textContent = savedName;
@@ -40,7 +44,7 @@ function sendToDiscord(username) {
 
   const payload = {
     content: `New signup: ${username}`,
-    username: "Signup Bot",
+    username: "Signup Bot"
   };
 
   fetch(webhookURL, {
@@ -49,5 +53,7 @@ function sendToDiscord(username) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  }).catch((err) => console.error("Webhook error:", err));
+  }).catch(err => {
+    console.error("Webhook error:", err);
+  });
 }
