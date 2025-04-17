@@ -11,8 +11,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;  /* Change background to black */
-  color: white;  /* Change text color to white for contrast */
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
   text-align: center;
   transition: background 1s ease-in-out;
 }
@@ -21,7 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white; /* Ensure text inside the signup container is white */
+  color: white;
 }
 
 #signup-container h2 {
@@ -32,7 +34,7 @@ body {
 #signup-container p {
   font-size: 18px;
   margin-bottom: 20px;
-  color: white;  /* Ensure the paragraph text is white */
+  color: white;
 }
 
 #signup-form {
@@ -47,8 +49,8 @@ body {
   width: 250px;
   border: 1px solid #fff;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.2);  /* Light transparent background for inputs */
-  color: white;  /* Change text color inside input to white */
+  background-color: #000; /* Black textboxes */
+  color: white; /* White text inside inputs */
 }
 
 #signup-form button {
@@ -71,13 +73,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;  /* Ensure the text in the main content is white */
+  color: white;
 }
 
 #main-content h2 {
   font-size: 36px;
 }
 
+/* Animations */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
